@@ -1,156 +1,85 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeoStore - Fishit</title>
-
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#111;
-  color:white;
-}
-
-header{
-  background:#000;
-  padding:15px;
-  text-align:center;
-  font-weight:bold;
-  font-size:20px;
-  border-bottom:2px solid orange;
-}
-
-.container{
-  padding:15px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-
-.card{
-  background:#1c1c1c;
-  padding:15px;
-  border-radius:15px;
-  text-align:center;
-  border:1px solid #2a2a2a;
-  transition:0.2s;
-}
-
-.card:hover{
-  transform:scale(1.03);
-  border-color:orange;
-}
-
-.price{
-  color:orange;
-  font-weight:bold;
-  margin:10px 0;
-}
-
-button{
-  background:orange;
-  border:none;
-  padding:8px 15px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.bottom-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#000;
-  padding:15px;
-  border-top:2px solid orange;
-  text-align:center;
-}
-
-.total{
-  margin-bottom:10px;
-}
-
-.order-btn{
-  width:100%;
-  padding:12px;
-  background:orange;
-  border:none;
-  font-size:16px;
-  border-radius:10px;
-  font-weight:bold;
-}
 </style>
 </head>
 <body>
 
-<header>🔥 NeoStore Fishit</header>
+<header>NeoStore - Fishit</header>
 
 <div class="container">
 
-<div class="card">
-  <h3>Batu Evo</h3>
-  <div class="price">Rp 500</div>
-  <button onclick="addItem('Batu Evo',500)">Pilih</button>
-</div>
-
-<div class="card">
-  <h3>Secret Tumbal</h3>
-  <div class="price">Rp 1.000</div>
-  <button onclick="addItem('Secret Tumbal',1000)">Pilih</button>
-</div>
-
-<div class="card">
-  <h3>Maja Biru</h3>
-  <div class="price">Rp 3.000</div>
-  <button onclick="addItem('Maja Biru',3000)">Pilih</button>
-</div>
-
-<div class="card">
-  <h3>Maja Kuning</h3>
-  <div class="price">Rp 4.000</div>
-  <button onclick="addItem('Maja Kuning',4000)">Pilih</button>
-</div>
-
-<div class="card">
-  <h3>Megalodon</h3>
-  <div class="price">Rp 10.000</div>
-  <button onclick="addItem('Megalodon',10000)">Pilih</button>
-</div>
-
-</div>
-
-<div class="bottom-bar">
-  <div class="total">
-    Total: Rp <span id="total">0</span>
+  <div class="card">
+    <h3>Fishit 50K</h3>
+    <div class="price">Rp 50.000</div>
+    <button onclick="beli('Fishit 50K - Rp50.000')">Beli</button>
   </div>
-  <button class="order-btn" onclick="orderNow()">Pesan Sekarang</button>
+
+  <div class="card">
+    <h3>Fishit 100K</h3>
+    <div class="price">Rp 100.000</div>
+    <button onclick="beli('Fishit 100K - Rp100.000')">Beli</button>
+  </div>
+
+</div>
+
+<!-- QRIS POPUP -->
+<div id="qrisBox" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+">
+
+  <div style="
+  background:#1c1c1c;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  max-width:300px;
+  ">
+
+    <h3>Scan QRIS</h3>
+
+    <!-- GANTI PATH JIKA PERLU -->
+    <img src="img/qris.jpg" style="width:220px;border-radius:10px;">
+
+    <br><br>
+
+    <button onclick="kirimWA()">Saya Sudah Bayar</button>
+    <br><br>
+    <button onclick="tutup()" style="background:#444;">Tutup</button>
+
+  </div>
 </div>
 
 <script>
-let selectedItem = "";
-let total = 0;
 
-function addItem(name,price){
-  selectedItem = name;
-  total = price;
-  document.getElementById("total").innerText = total.toLocaleString();
-  alert(name + " dipilih");
+let produkDipilih = "";
+
+function beli(produk){
+  produkDipilih = produk;
+  document.getElementById("qrisBox").style.display = "flex";
 }
 
-function orderNow(){
-  if(!selectedItem){
-    alert("Pilih item dulu!");
-    return;
-  }
-
-  let wa = "6281328941033";
-  let pesan = `Halo Admin, saya mau beli:\n\nProduk: ${selectedItem}\nTotal: Rp ${total}`;
-  let url = "https://wa.me/"+wa+"?text="+encodeURIComponent(pesan);
-  window.open(url,"_blank");
+function tutup(){
+  document.getElementById("qrisBox").style.display = "none";
 }
+
+function kirimWA(){
+
+  let nomor = "6281328941033";
+
+  let pesan = "ORDER NEO STORE%0A%0A"
+            + "Produk: " + produkDipilih + "%0A"
+            + "Saya sudah bayar via QRIS.";
+
+  window.open("https://wa.me/" + nomor + "?text=" + pesan, "_blank");
+
+}
+
 </script>
 
 </body>
