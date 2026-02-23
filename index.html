@@ -90,7 +90,7 @@ let dataOrder={};
 
 function updateTotal(){
   let h=hargaMap[produk.value]||0;
-  let j=parseInt(jumlah.value)||1;
+  let j=parseInt(jumlah.value)||;
   totalBox.innerText="Total: Rp"+(h*j).toLocaleString("id-ID");
 }
 produk.addEventListener("change",updateTotal);
