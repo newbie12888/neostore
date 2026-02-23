@@ -4,116 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NeoStore Premium</title>
-
 <style>
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-  text-align:center;
-}
-
-header{
-  padding:40px 20px;
-}
-
-header h1{
-  font-size:42px;
-  color:#00ffcc;
-  margin:0;
-  letter-spacing:2px;
-  text-shadow:0 0 15px #00ffcc;
-}
-
-.card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  width:90%;
-  max-width:420px;
-  margin:auto;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 0 35px rgba(0,255,200,0.3);
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:10px;
-  border:none;
-  font-size:16px;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  margin-top:15px;
-  background:#00ffcc;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#00ccaa;
-  transform:scale(1.05);
-}
-
-#totalBox{
-  margin-top:10px;
-  font-size:20px;
-  font-weight:bold;
-  color:#00ffcc;
-  text-shadow:0 0 15px #00ffcc;
-}
-
-#summaryBox{
-  display:none;
-  margin-top:15px;
-  padding:15px;
-  background:rgba(0,0,0,0.4);
-  border-radius:15px;
-  font-size:14px;
-}
-
-#qrisPopup{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background:rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.qrisContent{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  padding:25px;
-  border-radius:20px;
-  text-align:center;
-  width:90%;
-  max-width:320px;
-  box-shadow:0 0 35px rgba(0,255,200,0.5);
-}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center}
+header{padding:40px 20px}
+header h1{font-size:42px;color:#00ffcc;margin:0;letter-spacing:2px;text-shadow:0 0 15px #00ffcc}
+.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);width:90%;max-width:420px;margin:auto;padding:30px;border-radius:20px;box-shadow:0 0 35px rgba(0,255,200,0.3)}
+input,select{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:none;font-size:16px}
+button{width:100%;padding:14px;margin-top:15px;background:#00ffcc;border:none;border-radius:10px;font-weight:bold;font-size:16px;cursor:pointer;transition:0.3s}
+button:hover{background:#00ccaa;transform:scale(1.05)}
+#totalBox{margin-top:10px;font-size:20px;font-weight:bold;color:#00ffcc;text-shadow:0 0 15px #00ffcc}
+#summaryBox{display:none;margin-top:15px;padding:15px;background:rgba(0,0,0,0.4);border-radius:15px;font-size:14px}
+#hasilCek{margin-top:10px;font-weight:bold}
+#qrisPopup{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:999}
+.qrisContent{background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);padding:25px;border-radius:20px;text-align:center;width:90%;max-width:320px;box-shadow:0 0 35px rgba(0,255,200,0.5)}
 </style>
 </head>
-
 <body>
 
 <header>
   <h1>NEOSTORE⚡</h1>
-  
 </header>
 
 <section class="card">
@@ -129,7 +39,7 @@ button:hover{
       <option value="Megalodon - Rp10.000">Megalodon - Rp10.000</option>
     </select>
 
-    <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="" required>
+    <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="1" required>
 
     <select id="metode" required>
       <option value="">Metode Pembayaran</option>
@@ -143,12 +53,11 @@ button:hover{
     <div id="summaryBox"></div>
 
     <button type="submit">ORDER SEKARANG</button>
-    <hr style="margin:20px 0;border:1px solid rgba(255,255,255,0.1);">
-
-<h3>Cek Status Pembayaran</h3>
-<input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
-<button type="button" onclick="cekStatus()">Cek Status</button>
-<div id="hasilCek" style="margin-top:10px;font-weight:bold;"></div>
+    <hr style="margin:20px 0;border:1px solid rgba(255,255,255,0.1)">
+    <h3>Cek Status Pembayaran</h3>
+    <input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
+    <button type="button" onclick="cekStatus()">Cek Status</button>
+    <div id="hasilCek"></div>
   </form>
 </section>
 
@@ -158,7 +67,7 @@ button:hover{
     <h3 style="color:#00ffcc;">Scan QRIS</h3>
     <img src="img/qris.jpg" style="width:220px;border-radius:12px;">
     <br><br>
-    <button onclick="lanjutWA()">Klik Saya Sudah Bayar</button>
+    <button onclick="sudahBayar()">Saya Sudah Bayar</button>
     <br><br>
     <button onclick="tutupQR()" style="background:#444;">Tutup</button>
   </div>
@@ -182,10 +91,8 @@ let dataOrder={};
 function updateTotal(){
   let h=hargaMap[produk.value]||0;
   let j=parseInt(jumlah.value)||1;
-  let total=h*j;
-  totalBox.innerText="Total: Rp"+total.toLocaleString("id-ID");
+  totalBox.innerText="Total: Rp"+(h*j).toLocaleString("id-ID");
 }
-
 produk.addEventListener("change",updateTotal);
 jumlah.addEventListener("input",updateTotal);
 
@@ -198,63 +105,43 @@ document.getElementById("orderForm").addEventListener("submit",function(e){
   let j=parseInt(jumlah.value);
   let total=h*j;
 
-  if(username===""||!h||!metode){
+  if(!username || !h || !metode){
     alert("Lengkapi semua data!");
     return;
   }
 
-  // 🔥 Generate ID unik
   let idPembayaran="NEO"+Date.now();
-
-  // Simpan status awal
   localStorage.setItem(idPembayaran,"PENDING");
 
-  dataOrder={
-    username,
-    metode,
-    produk:produk.value,
-    jumlah:j,
-    total,
-    id:idPembayaran
-  };
+  dataOrder={username,metode,produk:produk.value,jumlah:j,total,id:idPembayaran};
 
   summaryBox.style.display="block";
   summaryBox.innerHTML=
-  `Ringkasan Order:<br>
-  ID Pembayaran: <b>${idPembayaran}</b><br>
-  Username: ${username}<br>
-  Produk: ${produk.value}<br>
-  Jumlah: ${j}<br>
-  Total: Rp${total.toLocaleString("id-ID")}<br>
-  Status: <span style="color:orange;">PENDING</span><br><br>`;
+  `Ringkasan Order:<br>ID Pembayaran: <b>${idPembayaran}</b><br>Username: ${username}<br>Produk: ${produk.value}<br>Jumlah: ${j}<br>Total: Rp${total.toLocaleString("id-ID")}<br>Status: <span style="color:orange;">PENDING</span><br><br>`;
 
   if(metode==="QRIS"){
     document.getElementById("qrisPopup").style.display="flex";
   }else{
-    lanjutWA();
+    kirimWA();
   }
 });
 
-function tutupQR(){
-  document.getElementById("qrisPopup").style.display="none";
+function tutupQR(){ document.getElementById("qrisPopup").style.display="none"; }
+
+function sudahBayar(){
+  // update status otomatis BERHASIL
+  localStorage.setItem(dataOrder.id,"BERHASIL");
+
+  // update summary
+  summaryBox.innerHTML+=`<p>Status sekarang: <span style="color:lime;">BERHASIL</span></p>`;
+
+  // kirim WA otomatis
+  kirimWA("BERHASIL");
+
+  tutupQR();
 }
 
-<script>
-function lanjutWA(){
-  // Update status otomatis
-  localStorage.setItem(dataOrder.id, "BERHASIL");
-
-  // Update ringkasan di halaman
-  summaryBox.innerHTML=
-  `Ringkasan Order:<br>
-  ID Pembayaran: <b>${dataOrder.id}</b><br>
-  Username: ${dataOrder.username}<br>
-  Produk: ${dataOrder.produk}<br>
-  Jumlah: ${dataOrder.jumlah}<br>
-  Total: Rp${dataOrder.total.toLocaleString("id-ID")}<br>
-  Status: <span style="color:lime;">BERHASIL</span><br><br>`;
-
-  // Pesan WA
+function kirimWA(status="PENDING"){
   let pesan=
 `Halo Admin, saya mau beli:
 
@@ -263,17 +150,26 @@ Username: ${dataOrder.username}
 Jumlah pembelian: ${dataOrder.jumlah}
 Produk: ${dataOrder.produk}
 Total pembayaran: Rp${dataOrder.total.toLocaleString("id-ID")}
-Status: BERHASIL
+Status: ${status}
 
 Silahkan kirim bukti pembayaran.
 Terimakasih sudah order di NEOSTORE ⚡`;
 
-  // Buka WA
   window.open("https://wa.me/6281328941033?text="+encodeURIComponent(pesan),"_blank");
+}
 
-  // Tutup QRIS popup otomatis
-  tutupQR();
+function cekStatus(){
+  let id=document.getElementById("cekId").value.trim();
+  let status=localStorage.getItem(id);
+  let hasil=document.getElementById("hasilCek");
+  if(status){
+    let warna=status=="BERHASIL"?"lime":status=="PENDING"?"orange":"red";
+    hasil.innerHTML=`Status ID ${id}: <span style="color:${warna};">${status}</span>`;
+  }else{
+    hasil.innerHTML=`ID ${id} tidak ditemukan!`;
+  }
 }
 </script>
+
 </body>
 </html>
