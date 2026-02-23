@@ -3,109 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeoStore - Top Up Fishit</title>
+<title>NeoStore Premium</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
-  text-align: center;
+header{
+  padding:40px 20px;
 }
 
-header {
-  padding: 40px 20px;
+header h1{
+  font-size:42px;
+  color:#00ffcc;
+  margin:0;
+  letter-spacing:2px;
+  text-shadow:0 0 15px #00ffcc;
 }
 
-header h1 {
-  font-size: 42px;
-  color: #00ffcc;
-  margin: 0;
-  letter-spacing: 2px;
+.card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  width:90%;
+  max-width:420px;
+  margin:auto;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 35px rgba(0,255,200,0.3);
 }
 
-header p {
-  opacity: 0.8;
-  margin-top: 8px;
+input,select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
 }
 
-.card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
-  width: 90%;
-  max-width: 420px;
-  margin: auto;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 25px rgba(0,255,200,0.3);
+button{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  background:#00ffcc;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+  animation:pulse 2s infinite;
 }
 
-.card h2 {
-  margin-top: 0;
+button:hover{
+  background:#00ccaa;
+  transform:scale(1.05);
 }
 
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(0,255,200,0.6)}
+  70%{box-shadow:0 0 0 15px rgba(0,255,200,0)}
+  100%{box-shadow:0 0 0 0 rgba(0,255,200,0)}
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  background: #00ffcc;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
+#totalBox{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:bold;
+  color:#00ffcc;
+  text-shadow:0 0 15px #00ffcc;
 }
 
-button:hover {
-  background: #00ccaa;
-  transform: scale(1.03);
-}
-
-footer {
-  margin-top: 50px;
-  padding: 20px;
-  font-size: 14px;
-  opacity: 0.7;
+#summaryBox{
+  display:none;
+  margin-top:15px;
+  padding:15px;
+  background:rgba(0,0,0,0.4);
+  border-radius:15px;
+  font-size:14px;
 }
 </style>
-
 </head>
+
 <body>
 
 <header>
   <h1>NEOSTORE</h1>
-  <p>Top Up Fishit Murah & Proses Cepat ⚡</p>
+  <p>Top Up Fishit Premium ⚡</p>
 </header>
 
 <section class="card">
-  <h2>Order Fishit</h2>
-
   <form id="orderForm">
     <input type="text" id="username" placeholder="Username Fishit" required>
-    
+
     <select id="produk" required>
-  <option value="">Pilih Nominal</option>
-  <option value="Batu Evo - Rp500">Batu Evo - Rp500</option>
-  <option value="Secret Tumbal - Rp1.000">Secret Tumbal - Rp1.000</option>
-  <option value="Maja Biru - Rp3.000">Maja Biru - Rp3.000</option>
-  <option value="Maja Kuning - Rp4.000">Maja Kuning - Rp4.000</option>
-  <option value="Megalodon - Rp10.000">Megalodon - Rp10.000</option>
-</select>
+      <option value="">Pilih Nominal</option>
+      <option value="Batu Evo - Rp500">Batu Evo - Rp500</option>
+      <option value="Secret Tumbal - Rp1.000">Secret Tumbal - Rp1.000</option>
+      <option value="Maja Biru - Rp3.000">Maja Biru - Rp3.000</option>
+      <option value="Maja Kuning - Rp4.000">Maja Kuning - Rp4.000</option>
+      <option value="Megalodon - Rp10.000">Megalodon - Rp10.000</option>
+    </select>
+
+    <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="1" required>
 
     <select id="metode" required>
       <option value="">Metode Pembayaran</option>
@@ -115,34 +122,90 @@ footer {
       <option>QRIS</option>
     </select>
 
+    <div id="totalBox">Total: Rp0</div>
+
+    <div id="summaryBox"></div>
+
     <button type="submit">ORDER SEKARANG</button>
   </form>
 </section>
 
-<footer>
-  © 2026 NeoStore - Fast Process ⚡
-</footer>
-
 <script>
-function kirimWA(){
+let hargaMap={
+"Batu Evo - Rp500":500,
+"Secret Tumbal - Rp1.000":1000,
+"Maja Biru - Rp3.000":3000,
+"Maja Kuning - Rp4.000":4000,
+"Megalodon - Rp10.000":10000
+};
 
-  let nomorAdmin = "6281328941033";
+let produk=document.getElementById("produk");
+let jumlah=document.getElementById("jumlah");
+let totalBox=document.getElementById("totalBox");
+let summaryBox=document.getElementById("summaryBox");
 
-  let pesan =
+function animateValue(start,end,duration){
+  let startTime=null;
+  function animation(currentTime){
+    if(!startTime) startTime=currentTime;
+    let progress=Math.min((currentTime-startTime)/duration,1);
+    let value=Math.floor(progress*(end-start)+start);
+    totalBox.innerText="Total: Rp"+value.toLocaleString("id-ID");
+    if(progress<1){
+      requestAnimationFrame(animation);
+    }
+  }
+  requestAnimationFrame(animation);
+}
+
+function updateTotal(){
+  let h=hargaMap[produk.value]||0;
+  let j=parseInt(jumlah.value)||1;
+  let total=h*j;
+  animateValue(0,total,400);
+}
+
+produk.addEventListener("change",updateTotal);
+jumlah.addEventListener("input",updateTotal);
+
+document.getElementById("orderForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  let username=document.getElementById("username").value.trim();
+  let metode=document.getElementById("metode").value;
+  let h=hargaMap[produk.value];
+  let j=parseInt(jumlah.value);
+  let total=h*j;
+
+  if(username===""||!h||!metode){
+    alert("Lengkapi semua data!");
+    return;
+  }
+
+  summaryBox.style.display="block";
+  summaryBox.innerHTML=
+  `Ringkasan Order:<br>
+  Username: ${username}<br>
+  Produk: ${produk.value}<br>
+  Jumlah: ${j}<br>
+  Total: Rp${total.toLocaleString("id-ID")}<br><br>
+  Mengalihkan ke WhatsApp...`;
+
+  setTimeout(()=>{
+    let pesan=
 `Halo Admin, saya mau beli:
 
-Username: ${dataOrder.username}
-Jumlah pembelian: ${dataOrder.jumlah}
-Produk: ${dataOrder.produk}
-Total pembayaran: Rp${dataOrder.total.toLocaleString("id-ID")}
+Username: ${username}
+Jumlah pembelian: ${j}
+Produk: ${produk.value}
+Total pembayaran: Rp${total.toLocaleString("id-ID")}
 
 Silahkan kirim bukti pembayaran.
 Terimakasih sudah order di NEOSTORE ⚡`;
 
-  let url = "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(pesan);
-
-  window.open(url, "_blank");
-}
+    window.open("https://wa.me/6281328941033?text="+encodeURIComponent(pesan),"_blank");
+  },2000);
+});
 </script>
 
 </body>
