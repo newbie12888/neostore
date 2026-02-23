@@ -1,86 +1,83 @@
-</style>
-</head>
-<body>
-
-<header>NeoStore - Fishit</header>
-
-<div class="container">
-
-  <div class="card">
-    <h3>Fishit 50K</h3>
-    <div class="price">Rp 50.000</div>
-    <button onclick="beli('Fishit 50K - Rp50.000')">Beli</button>
-  </div>
-
-  <div class="card">
-    <h3>Fishit 100K</h3>
-    <div class="price">Rp 100.000</div>
-    <button onclick="beli('Fishit 100K - Rp100.000')">Beli</button>
-  </div>
-
-</div>
-
-<!-- QRIS POPUP -->
-<div id="qrisBox" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-right:0;
-bottom:0;
-background:rgba(0,0,0,0.8);
-justify-content:center;
-align-items:center;
-">
-
-  <div style="
-  background:#1c1c1c;
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-  max-width:300px;
-  ">
-
-    <h3>Scan QRIS</h3>
-
-    <!-- GANTI PATH JIKA PERLU -->
-    <img src="img/qris.jpg" style="width:220px;border-radius:10px;">
-
-    <br><br>
-
-    <button onclick="kirimWA()">Saya Sudah Bayar</button>
-    <br><br>
-    <button onclick="tutup()" style="background:#444;">Tutup</button>
-
-  </div>
-</div>
-
 <script>
+let dataOrder = {};
+let hargaMap = {
+  "Batu Evo - Rp500": 500,
+  "Secret Tumbal - Rp1.000": 1000,
+  "Maja Biru - Rp3.000": 3000,
+  "Maja Kuning - Rp4.000": 4000,
+  "Megalodon - Rp10.000": 10000
+};
 
-let produkDipilih = "";
+let produkSelect = document.getElementById("produk");
+let jumlahInput = document.getElementById("jumlah");
+let totalBox = document.getElementById("totalBox");
 
-function beli(produk){
-  produkDipilih = produk;
-  document.getElementById("qrisBox").style.display = "flex";
+function updateTotal(){
+  let produk = produkSelect.value;
+  let jumlah = parseInt(jumlahInput.value) || 1;
+
+  if(hargaMap[produk]){
+    let total = hargaMap[produk] * jumlah;
+
+    totalBox.style.transform = "scale(1.1)";
+    setTimeout(()=> totalBox.style.transform = "scale(1)",150);
+
+    totalBox.innerText = "Total: Rp" + total.toLocaleString("id-ID");
+  } else {
+    totalBox.innerText = "Total: Rp0";
+  }
 }
 
-function tutup(){
-  document.getElementById("qrisBox").style.display = "none";
+produkSelect.addEventListener("change", updateTotal);
+jumlahInput.addEventListener("input", updateTotal);
+
+document.getElementById("orderForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let username = document.getElementById("username").value.trim();
+  let produk = produkSelect.value;
+  let metode = document.getElementById("metode").value;
+  let jumlah = parseInt(jumlahInput.value);
+
+  if(username === "" || produk === "" || metode === ""){
+    alert("Lengkapi semua data dulu!");
+    return;
+  }
+
+  let total = hargaMap[produk] * jumlah;
+
+  dataOrder = { username, produk, metode, jumlah, total };
+
+  if(metode === "QRIS"){
+    document.getElementById("qrisPopup").style.display = "flex";
+  } else {
+    kirimWA();
+  }
+});
+
+function tutupQR(){
+  document.getElementById("qrisPopup").style.display = "none";
 }
 
 function kirimWA(){
 
-  let nomor = "6281328941033";
+  let nomorAdmin = "6281328941033";
 
-  let pesan = "ORDER NEO STORE%0A%0A"
-            + "Produk: " + produkDipilih + "%0A"
-            + "Saya sudah bayar via QRIS.";
+  let pesan =
+`ORDER FISHIT
 
-  window.open("https://wa.me/" + nomor + "?text=" + pesan, "_blank");
+Username: ${dataOrder.username}
+Produk: ${dataOrder.produk}
+Jumlah: ${dataOrder.jumlah}
+Total: Rp${dataOrder.total.toLocaleString("id-ID")}
+Metode: ${dataOrder.metode}
 
+Saya sudah melakukan pembayaran.
+
+NeoStore ⚡`;
+
+  let url = "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(pesan);
+
+  window.open(url, "_blank");
 }
-
 </script>
-
-</body>
-</html>
