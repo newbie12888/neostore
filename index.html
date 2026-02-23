@@ -112,8 +112,8 @@ button:hover{
 <body>
 
 <header>
-  <h1>NEOSTORE</h1>
-  <p>Top Up Fishit Premium ⚡</p>
+  <h1>NEOSTORE⚡</h1>
+  
 </header>
 
 <section class="card">
@@ -143,6 +143,12 @@ button:hover{
     <div id="summaryBox"></div>
 
     <button type="submit">ORDER SEKARANG</button>
+    <hr style="margin:20px 0;border:1px solid rgba(255,255,255,0.1);">
+
+<h3>Cek Status Pembayaran</h3>
+<input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
+<button type="button" onclick="cekStatus()">Cek Status</button>
+<div id="hasilCek" style="margin-top:10px;font-weight:bold;"></div>
   </form>
 </section>
 
@@ -197,15 +203,30 @@ document.getElementById("orderForm").addEventListener("submit",function(e){
     return;
   }
 
-  dataOrder={username,metode,produk:produk.value,jumlah:j,total};
+  // 🔥 Generate ID unik
+  let idPembayaran="NEO"+Date.now();
+
+  // Simpan status awal
+  localStorage.setItem(idPembayaran,"PENDING");
+
+  dataOrder={
+    username,
+    metode,
+    produk:produk.value,
+    jumlah:j,
+    total,
+    id:idPembayaran
+  };
 
   summaryBox.style.display="block";
   summaryBox.innerHTML=
   `Ringkasan Order:<br>
+  ID Pembayaran: <b>${idPembayaran}</b><br>
   Username: ${username}<br>
   Produk: ${produk.value}<br>
   Jumlah: ${j}<br>
-  Total: Rp${total.toLocaleString("id-ID")}<br><br>`;
+  Total: Rp${total.toLocaleString("id-ID")}<br>
+  Status: <span style="color:orange;">PENDING</span><br><br>`;
 
   if(metode==="QRIS"){
     document.getElementById("qrisPopup").style.display="flex";
@@ -222,16 +243,42 @@ function lanjutWA(){
   let pesan=
 `Halo Admin, saya mau beli:
 
+ID Pembayaran: ${dataOrder.id}
 Username: ${dataOrder.username}
 Jumlah pembelian: ${dataOrder.jumlah}
 Produk: ${dataOrder.produk}
 Total pembayaran: Rp${dataOrder.total.toLocaleString("id-ID")}
+Status: PENDING
 
 Silahkan kirim bukti pembayaran.
 Terimakasih sudah order di NEOSTORE ⚡`;
 
   window.open("https://wa.me/6281328941033?text="+encodeURIComponent(pesan),"_blank");
 }
+
+// 🔥 TAMBAHKAN INI DI BAWAHNYA
+function cekStatus(){
+  let id=document.getElementById("cekId").value.trim();
+  let hasil=document.getElementById("hasilCek");
+
+  if(id===""){
+    hasil.innerHTML="<span style='color:red;'>Masukkan ID dulu!</span>";
+    return;
+  }
+
+  let status=localStorage.getItem(id);
+
+  if(!status){
+    hasil.innerHTML="<span style='color:red;'>ID tidak ditemukan</span>";
+  }else if(status==="PENDING"){
+    hasil.innerHTML="<span style='color:orange;'>Status: PENDING</span>";
+  }else if(status==="BERHASIL"){
+    hasil.innerHTML="<span style='color:lime;'>Status: BERHASIL</span>";
+  }else if(status==="GAGAL"){
+    hasil.innerHTML="<span style='color:red;'>Status: GAGAL</span>";
+  }
+}
+
 </script>
 
 </body>
