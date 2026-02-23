@@ -4,116 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NeoStore Premium</title>
-
 <style>
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-  text-align:center;
-}
-
-header{
-  padding:40px 20px;
-}
-
-header h1{
-  font-size:42px;
-  color:#00ffcc;
-  margin:0;
-  letter-spacing:2px;
-  text-shadow:0 0 15px #00ffcc;
-}
-
-.card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  width:90%;
-  max-width:420px;
-  margin:auto;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 0 35px rgba(0,255,200,0.3);
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:10px;
-  border:none;
-  font-size:16px;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  margin-top:15px;
-  background:#00ffcc;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#00ccaa;
-  transform:scale(1.05);
-}
-
-#totalBox{
-  margin-top:10px;
-  font-size:20px;
-  font-weight:bold;
-  color:#00ffcc;
-  text-shadow:0 0 15px #00ffcc;
-}
-
-#summaryBox{
-  display:none;
-  margin-top:15px;
-  padding:15px;
-  background:rgba(0,0,0,0.4);
-  border-radius:15px;
-  font-size:14px;
-}
-
-#qrisPopup{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background:rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.qrisContent{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(15px);
-  padding:25px;
-  border-radius:20px;
-  text-align:center;
-  width:90%;
-  max-width:320px;
-  box-shadow:0 0 35px rgba(0,255,200,0.5);
-}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center;}
+header{padding:40px 20px;}
+header h1{font-size:42px;color:#00ffcc;margin:0;letter-spacing:2px;text-shadow:0 0 15px #00ffcc;}
+.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);width:90%;max-width:420px;margin:auto;padding:30px;border-radius:20px;box-shadow:0 0 35px rgba(0,255,200,0.3);}
+input,select{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:none;font-size:16px;}
+button{width:100%;padding:14px;margin-top:15px;background:#00ffcc;border:none;border-radius:10px;font-weight:bold;font-size:16px;cursor:pointer;transition:0.3s;}
+button:hover{background:#00ccaa;transform:scale(1.05);}
+#totalBox{margin-top:10px;font-size:20px;font-weight:bold;color:#00ffcc;text-shadow:0 0 15px #00ffcc;}
+#summaryBox{display:none;margin-top:15px;padding:15px;background:rgba(0,0,0,0.4);border-radius:15px;font-size:14px;text-align:left;}
+#qrisPopup{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:999;}
+.qrisContent{background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);padding:25px;border-radius:20px;text-align:center;width:90%;max-width:320px;box-shadow:0 0 35px rgba(0,255,200,0.5);}
+#hasilCek{margin-top:10px;font-weight:bold;}
+hr{margin:20px 0;border:1px solid rgba(255,255,255,0.1);}
 </style>
 </head>
-
 <body>
 
 <header>
   <h1>NEOSTORE⚡</h1>
-  
+  <p>Top Up Fishit Premium ⚡</p>
 </header>
 
 <section class="card">
@@ -129,7 +41,7 @@ button:hover{
       <option value="Megalodon - Rp10.000">Megalodon - Rp10.000</option>
     </select>
 
-    <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="" required>
+    <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="1" required>
 
     <select id="metode" required>
       <option value="">Metode Pembayaran</option>
@@ -143,12 +55,11 @@ button:hover{
     <div id="summaryBox"></div>
 
     <button type="submit">ORDER SEKARANG</button>
-    <hr style="margin:20px 0;border:1px solid rgba(255,255,255,0.1);">
-
-<h3>Cek Status Pembayaran</h3>
-<input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
-<button type="button" onclick="cekStatus()">Cek Status</button>
-<div id="hasilCek" style="margin-top:10px;font-weight:bold;"></div>
+    <hr>
+    <h3>Cek Status Pembayaran</h3>
+    <input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
+    <button type="button" onclick="cekStatus()">Cek Status</button>
+    <div id="hasilCek"></div>
   </form>
 </section>
 
@@ -166,11 +77,11 @@ button:hover{
 
 <script>
 let hargaMap={
-"Batu Evo - Rp500":500,
-"Secret Tumbal - Rp1.000":1000,
-"Maja Biru - Rp3.000":3000,
-"Maja Kuning - Rp4.000":4000,
-"Megalodon - Rp10.000":10000
+  "Batu Evo - Rp500":500,
+  "Secret Tumbal - Rp1.000":1000,
+  "Maja Biru - Rp3.000":3000,
+  "Maja Kuning - Rp4.000":4000,
+  "Megalodon - Rp10.000":10000
 };
 
 let produk=document.getElementById("produk");
@@ -185,13 +96,11 @@ function updateTotal(){
   let total=h*j;
   totalBox.innerText="Total: Rp"+total.toLocaleString("id-ID");
 }
-
 produk.addEventListener("change",updateTotal);
 jumlah.addEventListener("input",updateTotal);
 
 document.getElementById("orderForm").addEventListener("submit",function(e){
   e.preventDefault();
-
   let username=document.getElementById("username").value.trim();
   let metode=document.getElementById("metode").value;
   let h=hargaMap[produk.value];
@@ -203,20 +112,11 @@ document.getElementById("orderForm").addEventListener("submit",function(e){
     return;
   }
 
-  // 🔥 Generate ID unik
+  // Generate ID unik
   let idPembayaran="NEO"+Date.now();
-
-  // Simpan status awal
   localStorage.setItem(idPembayaran,"PENDING");
 
-  dataOrder={
-    username,
-    metode,
-    produk:produk.value,
-    jumlah:j,
-    total,
-    id:idPembayaran
-  };
+  dataOrder={username,metode,produk:produk.value,jumlah:j,total,id:idPembayaran};
 
   summaryBox.style.display="block";
   summaryBox.innerHTML=
@@ -226,7 +126,9 @@ document.getElementById("orderForm").addEventListener("submit",function(e){
   Produk: ${produk.value}<br>
   Jumlah: ${j}<br>
   Total: Rp${total.toLocaleString("id-ID")}<br>
-  Status: <span style="color:orange;">PENDING</span><br><br>`;
+  Status: <span style="color:orange;">PENDING</span><br><br>
+  <button onclick="ubahStatus('${idPembayaran}','BERHASIL')">Simulasi Berhasil</button>
+  <button onclick="ubahStatus('${idPembayaran}','GAGAL')">Simulasi Gagal</button>`;
 
   if(metode==="QRIS"){
     document.getElementById("qrisPopup").style.display="flex";
@@ -256,29 +158,30 @@ Terimakasih sudah order di NEOSTORE ⚡`;
   window.open("https://wa.me/6281328941033?text="+encodeURIComponent(pesan),"_blank");
 }
 
-// 🔥 TAMBAHKAN INI DI BAWAHNYA
-function cekStatus(){
-  let id=document.getElementById("cekId").value.trim();
-  let hasil=document.getElementById("hasilCek");
+// Ubah status simulasi
+function ubahStatus(id,statusBaru){
+  localStorage.setItem(id,statusBaru);
+  let warna = statusBaru==='BERHASIL'?'lime':'red';
+  summaryBox.innerHTML += `<p>Status Sekarang: <b style="color:${warna};">${statusBaru}</b></p>`;
 
-  if(id===""){
-    hasil.innerHTML="<span style='color:red;'>Masukkan ID dulu!</span>";
-    return;
-  }
-
-  let status=localStorage.getItem(id);
-
-  if(!status){
-    hasil.innerHTML="<span style='color:red;'>ID tidak ditemukan</span>";
-  }else if(status==="PENDING"){
-    hasil.innerHTML="<span style='color:orange;'>Status: PENDING</span>";
-  }else if(status==="BERHASIL"){
-    hasil.innerHTML="<span style='color:lime;'>Status: BERHASIL</span>";
-  }else if(status==="GAGAL"){
-    hasil.innerHTML="<span style='color:red;'>Status: GAGAL</span>";
+  // Update hasil cek jika sama ID
+  let cekId = document.getElementById("cekId").value.trim();
+  if(cekId===id){
+    document.getElementById("hasilCek").innerHTML=`<span style="color:${warna};">Status: ${statusBaru}</span>`;
   }
 }
 
+// Cek status pembayaran
+function cekStatus(){
+  let id=document.getElementById("cekId").value.trim();
+  let hasil=document.getElementById("hasilCek");
+  if(id===""){hasil.innerHTML="<span style='color:red;'>Masukkan ID dulu!</span>";return;}
+  let status=localStorage.getItem(id);
+  if(!status){hasil.innerHTML="<span style='color:red;'>ID tidak ditemukan</span>";}
+  else if(status==="PENDING"){hasil.innerHTML="<span style='color:orange;'>Status: PENDING</span>";}
+  else if(status==="BERHASIL"){hasil.innerHTML="<span style='color:lime;'>Status: BERHASIL</span>";}
+  else if(status==="GAGAL"){hasil.innerHTML="<span style='color:red;'>Status: GAGAL</span>";}
+}
 </script>
 
 </body>
