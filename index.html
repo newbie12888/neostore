@@ -3,160 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeoStore - Top Up Fishit</title>
+<title>NeoStore - Fishit</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
-  text-align: center;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#111;
+  color:white;
 }
 
-header {
-  padding: 40px 20px;
+header{
+  background:#000;
+  padding:15px;
+  text-align:center;
+  font-weight:bold;
+  font-size:20px;
+  border-bottom:2px solid orange;
 }
 
-header h1 {
-  font-size: 42px;
-  color: #00ffcc;
-  margin: 0;
+.container{
+  padding:15px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-.card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
-  width: 90%;
-  max-width: 420px;
-  margin: auto;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 25px rgba(0,255,200,0.3);
+.card{
+  background:#1c1c1c;
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  border:1px solid #2a2a2a;
+  transition:0.2s;
 }
 
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
+.card:hover{
+  transform:scale(1.03);
+  border-color:orange;
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  background: #00ffcc;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+.price{
+  color:orange;
+  font-weight:bold;
+  margin:10px 0;
 }
 
-button:hover {
-  background: #00ccaa;
-  transform: scale(1.03);
+button{
+  background:orange;
+  border:none;
+  padding:8px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-#paymentBox {
-  display: none;
-  margin-top: 20px;
+.bottom-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#000;
+  padding:15px;
+  border-top:2px solid orange;
+  text-align:center;
 }
 
-#paymentBox img {
-  width: 250px;
-  border-radius: 12px;
-  margin-top: 10px;
-  box-shadow: 0 0 20px rgba(0,255,200,0.5);
+.total{
+  margin-bottom:10px;
 }
 
-footer {
-  margin-top: 50px;
-  padding: 20px;
-  font-size: 14px;
-  opacity: 0.7;
+.order-btn{
+  width:100%;
+  padding:12px;
+  background:orange;
+  border:none;
+  font-size:16px;
+  border-radius:10px;
+  font-weight:bold;
 }
 </style>
 </head>
-
 <body>
 
-<header>
-  <h1>NEOSTORE</h1>
-  <p>Top Up Fishit Murah & Cepat ⚡</p>
-</header>
+<header>🔥 NeoStore Fishit</header>
 
-<section class="card">
-  <h2>Order Fishit</h2>
+<div class="container">
 
-  <form id="orderForm">
-    <input type="text" id="username" placeholder="Username Fishit" required>
+<div class="card">
+  <h3>Batu Evo</h3>
+  <div class="price">Rp 500</div>
+  <button onclick="addItem('Batu Evo',500)">Pilih</button>
+</div>
 
-    <select id="produk" required>
-      <option value="">Pilih Nominal</option>
-      <option value="Batu Evo - Rp500">Batu Evo - Rp500</option>
-      <option value="Secret Tumbal - Rp1.000">Secret Tumbal - Rp1.000</option>
-      <option value="Maja Biru - Rp3.000">Maja Biru - Rp3.000</option>
-      <option value="Maja Kuning - Rp4.000">Maja Kuning - Rp4.000</option>
-      <option value="Megalodon - Rp10.000">Megalodon - Rp10.000</option>
-    </select>
+<div class="card">
+  <h3>Secret Tumbal</h3>
+  <div class="price">Rp 1.000</div>
+  <button onclick="addItem('Secret Tumbal',1000)">Pilih</button>
+</div>
 
-    <button type="submit">ORDER SEKARANG</button>
-  </form>
+<div class="card">
+  <h3>Maja Biru</h3>
+  <div class="price">Rp 3.000</div>
+  <button onclick="addItem('Maja Biru',3000)">Pilih</button>
+</div>
 
-  <div id="paymentBox">
-    <h3>Scan QRIS untuk Pembayaran</h3>
-    <img src="qris.jpg" alt="QRIS NeoStore">
-    <p>Setelah bayar, klik tombol di bawah ini</p>
-    <button onclick="kirimWA()">Saya Sudah Bayar</button>
+<div class="card">
+  <h3>Maja Kuning</h3>
+  <div class="price">Rp 4.000</div>
+  <button onclick="addItem('Maja Kuning',4000)">Pilih</button>
+</div>
+
+<div class="card">
+  <h3>Megalodon</h3>
+  <div class="price">Rp 10.000</div>
+  <button onclick="addItem('Megalodon',10000)">Pilih</button>
+</div>
+
+</div>
+
+<div class="bottom-bar">
+  <div class="total">
+    Total: Rp <span id="total">0</span>
   </div>
-
-</section>
-
-<footer>
-  © 2026 NeoStore - Fast Process ⚡
-</footer>
+  <button class="order-btn" onclick="orderNow()">Pesan Sekarang</button>
+</div>
 
 <script>
-let orderData = {};
+let selectedItem = "";
+let total = 0;
 
-document.getElementById("orderForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+function addItem(name,price){
+  selectedItem = name;
+  total = price;
+  document.getElementById("total").innerText = total.toLocaleString();
+  alert(name + " dipilih");
+}
 
-  let username = document.getElementById("username").value.trim();
-  let produk = document.getElementById("produk").value;
-
-  if(username === "" || produk === ""){
-    alert("Lengkapi data dulu!");
+function orderNow(){
+  if(!selectedItem){
+    alert("Pilih item dulu!");
     return;
   }
 
-  orderData = { username, produk };
-
-  document.getElementById("paymentBox").style.display = "block";
-  window.scrollTo(0, document.body.scrollHeight);
-});
-
-function kirimWA() {
-  let nomorAdmin = "6281328941033";
-
-  let pesan = 
-`ORDER FISHIT
-
-Username: ${orderData.username}
-Produk: ${orderData.produk}
-Metode: QRIS
-
-Saya sudah bayar, berikut bukti transfer.`;
-
-  let url = "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(pesan);
-
-  window.location.href = url;
+  let wa = "6281328941033";
+  let pesan = `Halo Admin, saya mau beli:\n\nProduk: ${selectedItem}\nTotal: Rp ${total}`;
+  let url = "https://wa.me/"+wa+"?text="+encodeURIComponent(pesan);
+  window.open(url,"_blank");
 }
 </script>
 
